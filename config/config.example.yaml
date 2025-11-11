@@ -1,0 +1,181 @@
+# ============================================================================
+# 多交易所策略自动化系统 - Golang版本配置
+# ============================================================================
+
+# ────────────────────────────────────────────────────────────────────────────
+# 🔧 应用配置
+# ────────────────────────────────────────────────────────────────────────────
+app:
+  name: "Crypto Trading System"
+  version: "2.0.0-go"
+  environment: "development"  # development, production, testing
+
+# ────────────────────────────────────────────────────────────────────────────
+# 🔗 交易所配置
+# ────────────────────────────────────────────────────────────────────────────
+exchanges:
+  # Binance 期货
+  - id: "binance"
+    name: "Binance"
+    type: "perpetual"
+    api_key: ""  # 填写您的API密钥
+    api_secret: ""  # 填写您的API密钥
+    testnet: false
+    enabled: true
+    extra:
+      default_leverage: 1
+      default_margin_mode: "cross"
+
+  # Hyperliquid
+  - id: "hyperliquid"
+    name: "Hyperliquid"
+    type: "perpetual"
+    api_key: ""
+    api_secret: ""
+    wallet_address: ""  # Hyperliquid需要钱包地址
+    testnet: false
+    enabled: false
+    extra:
+      default_leverage: 1
+
+  # Backpack
+  - id: "backpack"
+    name: "Backpack"
+    type: "perpetual"
+    api_key: ""
+    api_secret: ""
+    testnet: false
+    enabled: false
+
+  # Lighter
+  - id: "lighter"
+    name: "Lighter"
+    type: "perpetual"
+    api_key: ""
+    api_secret: ""
+    testnet: false
+    enabled: false
+
+  # OKX
+  - id: "okx"
+    name: "OKX"
+    type: "perpetual"
+    api_key: ""
+    api_secret: ""
+    api_passphrase: ""  # OKX需要passphrase
+    testnet: false
+    enabled: false
+
+  # EdgeX
+  - id: "edgex"
+    name: "EdgeX"
+    type: "perpetual"
+    api_key: ""
+    api_secret: ""
+    testnet: false
+    enabled: false
+
+# ────────────────────────────────────────────────────────────────────────────
+# 📊 交易配置
+# ────────────────────────────────────────────────────────────────────────────
+trading:
+  # 默认杠杆倍数
+  default_leverage: 1
+  
+  # 默认保证金模式 (cross, isolated)
+  default_margin_mode: "cross"
+  
+  # 最大持仓规模 (USDT)
+  max_position_size: 10000
+  
+  # 每笔交易风险比例
+  risk_per_trade: 0.02
+
+# ────────────────────────────────────────────────────────────────────────────
+# 🌐 网格交易配置
+# ────────────────────────────────────────────────────────────────────────────
+grid:
+  # 网格类型: normal, martin, trailing, scalping
+  grid_type: "normal"
+  
+  # 交易对
+  symbol: "BTCUSDT"
+  
+  # 价格区间
+  lower_price: 40000
+  upper_price: 50000
+  
+  # 网格数量
+  grid_count: 10
+  
+  # 每格金额 (USDT)
+  amount_per_grid: 100
+  
+  # 杠杆倍数
+  leverage: 1
+  
+  # 保证金模式
+  margin_mode: "cross"
+
+# ────────────────────────────────────────────────────────────────────────────
+# 💹 刷量配置
+# ────────────────────────────────────────────────────────────────────────────
+volume_maker:
+  # 交易对
+  symbol: "BTCUSDT"
+  
+  # 刷量模式: limit, market
+  mode: "limit"
+  
+  # 每笔金额 (USDT)
+  amount_per_trade: 10
+  
+  # 间隔时间 (秒)
+  interval: 60
+  
+  # 价差百分比
+  spread_percentage: 0.1
+
+# ────────────────────────────────────────────────────────────────────────────
+# 🔄 套利监控配置
+# ────────────────────────────────────────────────────────────────────────────
+arbitrage:
+  # 监控的交易对列表
+  symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+  
+  # 最小价差百分比阈值
+  min_spread_percentage: 0.5
+  
+  # 更新间隔 (秒)
+  update_interval: 1
+
+# ────────────────────────────────────────────────────────────────────────────
+# 🔔 价格提醒配置
+# ────────────────────────────────────────────────────────────────────────────
+price_alert:
+  # 提醒列表
+  alerts:
+    - symbol: "BTCUSDT"
+      target_price: 50000
+      condition: "above"  # above, below
+      enabled: true
+    
+    - symbol: "ETHUSDT"
+      target_price: 3000
+      condition: "above"
+      enabled: true
+
+# ────────────────────────────────────────────────────────────────────────────
+# 📝 日志配置
+# ────────────────────────────────────────────────────────────────────────────
+logging:
+  # 日志级别: debug, info, warn, error
+  level: "info"
+  
+  # 输出路径: stdout, 或文件路径
+  output_path: "stdout"
+  
+  # 是否使用彩色输出
+  colored: true
